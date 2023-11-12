@@ -24,4 +24,5 @@ curl -x http://127.0.0.1:8118 https://check.torproject.org
 ```
 
 ## Environment Variables
-**TOR_INSTANCES** - The amount of tor instances you want the container to spin up. Default: 3
+**TOR_INSTANCES** - The amount of Tor instances you want the container to spin up. Default: 3
+**TOR_IP_REFRESH_CRON** - Cron expression that dictates how often the exit nodes of the Tor instances are refreshed. Default: */5 * * * *

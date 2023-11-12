@@ -16,6 +16,9 @@ do
     CONTROL_PORT=$((${SOCKS_PORT} + 1))
 done
 
+# Remote template file
+rm ${TOR_CONFIG_PATH}/torrc.template
+
 # Starting all tor instances
 for file in ${TOR_CONFIG_PATH}/torrc.*
 do
@@ -31,6 +34,8 @@ echo "forward-socks5   /               127.0.0.1:1080 ." >> /etc/privoxy/config
 # Start privoxy
 /etc/init.d/privoxy start
 
+# Add cronjob to refresh exit node IPs
+echo "${TOR_IP_REFRESH_CRON} kill -HUP $(pidof tor)" | crontab -
 
 # Uninstall unnecessary packages
 apt purge -y gpg wget gettext-base

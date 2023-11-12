@@ -1,6 +1,7 @@
 FROM ubuntu:23.10
 
 ENV TOR_INSTANCES 3
+ENV TOR_IP_REFRESH_CRON */5 * * * *
 
 COPY startup.sh /scripts/startup.sh
 COPY configs/tor/tor.list /etc/apt/sources.list.d/tor.list
