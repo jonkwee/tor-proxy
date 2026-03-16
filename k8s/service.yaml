@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tor-proxy
+  labels:
+    app: tor-proxy
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8118
+      targetPort: http-proxy
+      protocol: TCP
+      name: http
+  selector:
+    app: tor-proxy

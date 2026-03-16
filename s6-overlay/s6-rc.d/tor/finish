@@ -1,0 +1,2 @@
+#!/bin/bash
+killall tor 2>/dev/null || true

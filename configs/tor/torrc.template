@@ -1,3 +1,2 @@
 SocksPort ${SOCKS_PORT}
-ControlPort ${CONTROL_PORT}
 DataDirectory /var/lib/tor${TOR_COUNT}

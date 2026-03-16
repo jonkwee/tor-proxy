@@ -1,0 +1,11 @@
+#!/bin/bash
+exec 2>&1
+
+# Start all tor instances as debian-tor user
+for file in /etc/tor/torrc.*; do
+    [ -f "$file" ] || continue
+    s6-setuidgid debian-tor tor -f "$file" &
+done
+
+# Wait for any child to exit (s6 will restart us)
+wait -n

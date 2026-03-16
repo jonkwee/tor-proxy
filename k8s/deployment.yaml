@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tor-proxy
+  labels:
+    app: tor-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tor-proxy
+  template:
+    metadata:
+      labels:
+        app: tor-proxy
+    spec:
+      containers:
+        - name: tor-proxy
+          image: tor-proxy:latest
+          ports:
+            - containerPort: 8118
+              name: http-proxy
+          env:
+            - name: TOR_INSTANCES
+              value: "3"
+            - name: TOR_IP_REFRESH_INTERVAL
+              value: "300"
+          livenessProbe:
+            exec:
+              command:
+                - /scripts/healthcheck.sh
+            initialDelaySeconds: 120
+            periodSeconds: 60
+            timeoutSeconds: 15
+            failureThreshold: 3
+          readinessProbe:
+            tcpSocket:
+              port: 8118
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"

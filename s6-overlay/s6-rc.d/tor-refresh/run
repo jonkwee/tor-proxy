@@ -1,0 +1,10 @@
+#!/bin/bash
+exec 2>&1
+
+INTERVAL="${TOR_IP_REFRESH_INTERVAL:-300}"
+
+while true; do
+    sleep "$INTERVAL"
+    echo "Refreshing Tor exit nodes..."
+    killall -HUP tor 2>/dev/null || true
+done
